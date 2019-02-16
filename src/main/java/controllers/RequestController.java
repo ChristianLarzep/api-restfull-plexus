@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Report;
+import models.Request;
 import services.RequestDao;
 
 /**
@@ -71,11 +72,34 @@ public class RequestController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         try{
-            BufferedReader reader = request.getReader();
-            Report report = gson.fromJson(reader, Report.class);
-            requestdao.insert(report);
-            out.print(true);
-            out.flush();   
+            if(isEmpty(request)){
+                BufferedReader reader = request.getReader();
+                Request req = gson.fromJson(reader, Request.class);
+                requestdao.insert(req);
+                out.print(true);
+                out.flush();
+            }   
+        }catch(SQLException e){
+            e.printStackTrace();
+            out.print(false);
+            out.flush();
+        }
+        processRequest(request, response);
+    }
+    
+     @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //Se manda el objeto COMṔLETO desde front, con los aributos que se desean actualizar ya editados
+        PrintWriter out = response.getWriter();
+        try{
+            if(isEmpty(request)){
+                BufferedReader reader = request.getReader();
+                Request req = gson.fromJson(reader, Request.class);
+                requestdao.update(req);
+                out.print(true);
+                out.flush();
+            }   
         }catch(SQLException e){
             e.printStackTrace();
             out.print(false);

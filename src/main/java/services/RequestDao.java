@@ -19,7 +19,7 @@ import models.Request;
  */
 public class RequestDao implements IDao{
      private Connection userConn;
-    private final String INSERT_REQUEST = "INSERT INTO request(date, description, hour, status, subject, system, adviser_user_id, client_user_id) VALUES(?,?,?,?,?,?,?,?,?)";
+    private final String INSERT_REQUEST = "INSERT INTO request(date, description, hour, status, subject, system, adviser_user_id, client_user_id) VALUES(?,?,?,?,?,?,?,?)";
     private final String SELECT_CLIENT_REQUEST = "SELECT * FROM request WHERE client_user_id = ?";
     private final String SELECT_ADVISER_REQUEST = "SELECT * FROM request WHERE adviser_user_id = ?";
     private final String SELECT_REQUEST = "SELECT * FROM request WHERE request_id = ?";
@@ -50,10 +50,8 @@ public class RequestDao implements IDao{
             stmt.setString(index++, r.getSystem());
             stmt.setLong(index++, r.getIdAdviser());
             stmt.setLong(index++, r.getIdClient());
-            
-            System.out.println("Executing query: "+INSERT_REQUEST);
+           
             rows = stmt.executeUpdate();
-            System.out.println("Affected records: "+rows);
         }finally{
             DBConnection.close(stmt);
             if(this.userConn == null){
