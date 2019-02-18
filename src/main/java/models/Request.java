@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 public class Request {
     private long requestId;

@@ -21,7 +21,7 @@ import services.ReportDao;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 @WebServlet(name = "ReportController", urlPatterns = {"/report/*"})
 public class ReportController extends HttpServlet {
@@ -50,7 +50,7 @@ public class ReportController extends HttpServlet {
                 reportJsonStr = getJsonData("BY_ID", id, role);
             }
             else if(role.equals("CLIENT")){
-                id = retrieveClientId(request,"GET");
+                id = retrieveClientId(request);
                 reportJsonStr = getJsonData("BY_ID", id, role);
             }
         }
@@ -69,13 +69,9 @@ public class ReportController extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         try{
-          String advId = retrieveAdviserId(request);
-          String clintId =retrieveClientId(request,"POST");
-          if(advId != null && clintId != null){
+          if(isEmpty(request)){
             BufferedReader reader = request.getReader();
             Report report = gson.fromJson(reader, Report.class);
-            report.setIdAdviser(Integer.parseInt(advId));
-            report.setIdClient(Integer.parseInt(clintId));
             reportdao.insert(report);
             out.print(true);
             out.flush();   
@@ -148,20 +144,30 @@ public class ReportController extends HttpServlet {
       return null;
     }
     
-    private static String retrieveClientId(HttpServletRequest req, String method) {      
+    private static String retrieveClientId(HttpServletRequest req) {      
       try {
           String pathInfo = req.getPathInfo();
-          if(method.equals("GET")){
             return pathInfo.substring(8);   
-          } else if(method.equals("POST")){
-              String[] parts = pathInfo.split("/");
-              return parts[4];
-          }
+         
 
       } catch(StringIndexOutOfBoundsException error){
       
       } 
       return null;
     }
+    
+    
 
 }
+
+//GET
+// http://localhost:4949/api-restfull-plexus/report
+// http://localhost:4949/api-restfull-plexus/client/id
+// http://localhost:4949/api-restfull-plexus/adviser/id
+
+//POST
+// http://localhost:4949/api-restfull-plexus/report
+//Todo el objeto es necesario
+
+//Falta PUT
+

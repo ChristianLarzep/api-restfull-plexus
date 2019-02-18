@@ -20,7 +20,7 @@ import org.junit.Assert;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 public class quizTests {
     
@@ -42,6 +42,29 @@ public class quizTests {
     
     @After
     public void tearDown() {
+    }
+    
+     @Test
+    public void postQuizTest()
+    {		
+            RequestSpecification request = RestAssured.given();
+
+            JSONObject requestParams = new JSONObject();
+            requestParams.put("contact", "test");
+            requestParams.put("idAdviser", "4");
+            requestParams.put("timeWaiting", "30,60");
+            requestParams.put("timeToSolve", "0,30");
+            requestParams.put("knowledge",  "80");
+            requestParams.put("satisfaction",  "80");
+            
+            request.body(requestParams.toString());
+            Response response = request.post("/quiz");
+
+            int statusCode = response.getStatusCode();
+            Assert.assertEquals(200, statusCode);
+            ResponseBody body = response.getBody();
+            String result = body.asString();
+            Assert.assertTrue(result.contains("true"));
     }
     
     @Test
@@ -76,27 +99,5 @@ public class quizTests {
         Assert.assertTrue(result.contains("satisfaction"));
         Assert.assertTrue(result.contains("80")); 
     }
-   
-    @Test
-    public void postQuizTest()
-    {		
-            RequestSpecification request = RestAssured.given();
-
-            JSONObject requestParams = new JSONObject();
-            requestParams.put("contact", "plexu");
-            requestParams.put("idAdviser", "4");
-            requestParams.put("timeWaiting", "30,60");
-            requestParams.put("timeToSolve", "0,30");
-            requestParams.put("knowledge",  "80");
-            requestParams.put("satisfaction",  "80");
-            
-            request.body(requestParams.toString());
-            Response response = request.post("/quiz");
-
-            int statusCode = response.getStatusCode();
-            Assert.assertEquals(statusCode, 200);
-            ResponseBody body = response.getBody();
-            String result = body.asString();
-            Assert.assertTrue(result.contains("true"));
-    }
+  
 }

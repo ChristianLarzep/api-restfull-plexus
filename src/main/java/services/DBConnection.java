@@ -8,7 +8,7 @@ package services;
 import java.sql.*;
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 public class DBConnection {
      private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";

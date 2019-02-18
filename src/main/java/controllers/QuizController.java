@@ -126,8 +126,9 @@ public class QuizController extends HttpServlet {
 }
 
 
-//String id = request.getParameter("id");
-//JSONObject item = new JSONObject();
-//item.put("information", true);
-//http://hmkcode.com/java-servlet-send-receive-json-using-jquery-ajax/
-//https://www.logicbig.com/tutorials/java-ee-tutorial/java-servlet/put-example.html
+// GET
+// http://localhost:4949/api-restfull-plexus/quiz
+// http://localhost:4949/api-restfull-plexus/quiz/id
+
+//POST
+// http://localhost:4949/api-restfull-plexus/quiz

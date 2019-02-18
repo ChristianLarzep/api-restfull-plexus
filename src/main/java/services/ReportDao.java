@@ -15,7 +15,7 @@ import models.Report;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 public class ReportDao implements IDao{
     private Connection userConn;

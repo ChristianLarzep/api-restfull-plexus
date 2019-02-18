@@ -22,14 +22,14 @@ import services.RequestDao;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 @WebServlet(name = "RequestController", urlPatterns = {"/request/*"})
 public class RequestController extends HttpServlet {
     
     RequestDao requestdao = new RequestDao();
     private final Gson gson = new Gson();
-    String reportJsonStr;
+    String requestJsonStr;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,28 +41,28 @@ public class RequestController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(isEmpty(request)){
-            reportJsonStr = getJsonData("SELECT_ALL","","");
+            requestJsonStr = getJsonData("SELECT_ALL","","");
         } else {
             String id;
             String role = getResource(request);
             if(role.equals("ADVISER")){
                 id = retrieveAdviserId(request);
-                reportJsonStr = getJsonData("BY_ID", id, role);
+                requestJsonStr = getJsonData("BY_ID", id, role);
             }
             else if(role.equals("CLIENT")){
                 id = retrieveClientId(request);
-                reportJsonStr = getJsonData("BY_ID", id, role);
+                requestJsonStr = getJsonData("BY_ID", id, role);
             }
             else if(role.equals("REQUEST")){
                 id = retrieveRequestId(request);
-                reportJsonStr = getJsonData("BY_ID", id, role);
+                requestJsonStr = getJsonData("BY_ID", id, role);
                 
             }
         }
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(reportJsonStr);
+        out.print(requestJsonStr);
         out.flush(); 
         processRequest(request, response);
     }
@@ -197,3 +197,15 @@ public class RequestController extends HttpServlet {
     }
 
 }
+
+
+//GET
+// http://localhost:4949/api-restfull-plexus/request
+// http://localhost:4949/api-restfull-plexus/request/client/id
+// http://localhost:4949/api-restfull-plexus/request/adviser/id
+
+//POST
+// http://localhost:4949/api-restfull-plexus/request
+
+//PUT
+//http://localhost:4949/api-restfull-plexus/request

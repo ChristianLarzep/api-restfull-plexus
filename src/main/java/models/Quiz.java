@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author christian
+ * @author christian larzep
  */
 public class Quiz {
     private int quizId;

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 /**
  *
- * @author christian
+ * @author christian larzep
  * @param <T>
  */
 public interface IDao<T> {
