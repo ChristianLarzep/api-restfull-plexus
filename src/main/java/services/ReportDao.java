@@ -29,6 +29,11 @@ public class ReportDao implements IDao{
     public ReportDao(Connection userConn){
         this.userConn = userConn;
     }
+    
+     @Override
+    public Object update(Object object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public int insert(Object report) throws SQLException {
@@ -62,10 +67,7 @@ public class ReportDao implements IDao{
         return rows;
     }
 
-    @Override
-    public int update(Object report) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+  
 
     @Override
     public int delete(Object report) throws SQLException {

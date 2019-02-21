@@ -13,8 +13,8 @@ public class Quiz {
     private int quizId;
     private String contact;
     private int idAdviser;
-    private String timeWaiting;
-    private String timeToSolve;
+    private String time_waiting;
+    private String time_to_Solve;
     private String knowledge;
     private String satisfaction;
     
@@ -45,19 +45,19 @@ public class Quiz {
     }
 
     public String getTimeWaiting() {
-        return timeWaiting;
+        return time_waiting;
     }
 
     public void setTimeWaiting(String timeWaiting) {
-        this.timeWaiting = timeWaiting;
+        this.time_waiting = timeWaiting;
     }
 
     public String getTimeToSolve() {
-        return timeToSolve;
+        return time_to_Solve;
     }
 
     public void setTimeToSolve(String timeToSolve) {
-        this.timeToSolve = timeToSolve;
+        this.time_to_Solve = timeToSolve;
     }
 
     public String getKnowledge() {

@@ -10,24 +10,24 @@ package models;
  * @author christian larzep
  */
 public class Request {
-    private long requestId;
+    private long request_id;
     private String date;
     private String hour;
     private String subject;
     private String description;
     private String system;
     private String status;
-    private long idAdviser;
-    private long idClient;
+    private long adviser_user_id;
+    private long client_user_id;
 
     public Request(){}
     
     public long getRequestId() {
-        return requestId;
+        return request_id;
     }
 
     public void setRequestId(long requestId) {
-        this.requestId = requestId;
+        this.request_id = requestId;
     }
 
     public String getDate() {
@@ -79,18 +79,18 @@ public class Request {
     }
 
     public long getIdAdviser() {
-        return idAdviser;
+        return adviser_user_id;
     }
 
     public void setIdAdviser(long idAdviser) {
-        this.idAdviser = idAdviser;
+        this.adviser_user_id = idAdviser;
     }
 
     public long getIdClient() {
-        return idClient;
+        return client_user_id;
     }
 
     public void setIdClient(long idClient) {
-        this.idClient = idClient;
+        this.client_user_id = idClient;
     }
 }

@@ -18,8 +18,10 @@ import models.User;
 public class UserDao {
     private Connection userConn;
     private final String INSERT_USER = "INSERT INTO user(cell, email, password, r_social, rfc, role, tel, username) VALUES(?,?,?,?,?,?,?,?)";
-    private final String FIND_USER ="SELECT * FROM user WHERE password = ? AND email = ?";
-
+    private final String CHECK_USER ="SELECT * FROM user WHERE password = ? AND email = ?";
+    private final String FIND_USER = "SELECT * FROM user WHERE user_id = ?";
+    
+    
    public UserDao(){}
     
     public UserDao(Connection userConn){
@@ -33,7 +35,7 @@ public class UserDao {
         ResultSet rs = null;
         try{
             conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
-            stmt = conn.prepareStatement(FIND_USER);
+            stmt = conn.prepareStatement(CHECK_USER);
              stmt.setString(1, user.getPassword());
              stmt.setString(2, user.getEmail()); 
             rs = stmt.executeQuery();
@@ -100,4 +102,49 @@ public class UserDao {
         }
         return registred;
     }
+    
+    public User selectUser(long id) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        User result = null;
+        ResultSet rs = null;
+        try{
+            conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+            stmt = conn.prepareStatement(FIND_USER);
+            stmt.setLong(1, id);
+
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                long idUser = rs.getLong(1);
+                long cell = rs.getLong(2);
+                String email = rs.getString(3);
+                String password = rs.getString(4);
+                String r_soscial = rs.getString(5);
+                String rfc = rs.getString(6);
+                String role = rs.getString(7);
+                long tel = rs.getLong(8);
+                String username = rs.getString(9);
+
+                result = new User();
+                result.setUserId(idUser);
+                result.setCell(cell);
+                result.setEmail(email);
+                result.setPassword(password);
+                result.setR_social(r_soscial);
+                result.setRfc(rfc);
+                result.setRole(role);
+                result.setTel(tel);
+                result.setUsername(username);
+            }
+            
+        }finally{
+            DBConnection.close(rs);
+            DBConnection.close(stmt);
+            if(this.userConn == null){
+                DBConnection.close(conn);
+            }
+        }
+       return result;
+    }
+    
 }

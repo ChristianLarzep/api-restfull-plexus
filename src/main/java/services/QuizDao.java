@@ -58,7 +58,7 @@ public class QuizDao implements IDao{
     }
 
     @Override
-    public int update(Object quiz) throws SQLException {
+    public Object update(Object quiz) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

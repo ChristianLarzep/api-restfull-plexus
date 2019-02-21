@@ -15,7 +15,7 @@ import java.util.List;
 public interface IDao<T> {
     public int insert(T object) throws SQLException;
 
-    public int update(T object) throws SQLException;
+    public T update(T object) throws SQLException;
     
     public int delete(T object) throws SQLException;
     

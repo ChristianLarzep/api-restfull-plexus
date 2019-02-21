@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Report;
 import models.Request;
+import models.RequestItem;
 import services.RequestDao;
 
 /**
@@ -45,18 +46,21 @@ public class RequestController extends HttpServlet {
         } else {
             String id;
             String role = getResource(request);
-            if(role.equals("ADVISER")){
-                id = retrieveAdviserId(request);
-                requestJsonStr = getJsonData("BY_ID", id, role);
-            }
-            else if(role.equals("CLIENT")){
-                id = retrieveClientId(request);
-                requestJsonStr = getJsonData("BY_ID", id, role);
-            }
-            else if(role.equals("REQUEST")){
-                id = retrieveRequestId(request);
-                requestJsonStr = getJsonData("BY_ID", id, role);
-                
+            switch (role) {
+                case "ADVISER":
+                    id = retrieveAdviserId(request);
+                    requestJsonStr = getJsonData("BY_USER_ID", id, role);
+                    break;
+                case "CLIENT":
+                    id = retrieveClientId(request);
+                    requestJsonStr = getJsonData("BY_USER_ID", id, role);
+                    break;
+                case "REQUEST":
+                    id = retrieveRequestId(request);
+                    requestJsonStr = getJsonData("BY_REQUEST_ID", id, "");
+                    break;
+                default:
+                    break;
             }
         }
         PrintWriter out = response.getWriter();
@@ -75,13 +79,13 @@ public class RequestController extends HttpServlet {
             if(isEmpty(request)){
                 BufferedReader reader = request.getReader();
                 Request req = gson.fromJson(reader, Request.class);
-                requestdao.insert(req);
-                out.print(true);
+                int id = requestdao.insert(req);
+                out.print(id);
                 out.flush();
             }   
         }catch(SQLException e){
             e.printStackTrace();
-            out.print(false);
+            out.print(0);
             out.flush();
         }
         processRequest(request, response);
@@ -96,13 +100,13 @@ public class RequestController extends HttpServlet {
             if(isEmpty(request)){
                 BufferedReader reader = request.getReader();
                 Request req = gson.fromJson(reader, Request.class);
-                requestdao.update(req);
-                out.print(true);
+                out.print(requestdao.update(req));
                 out.flush();
             }   
         }catch(SQLException e){
             e.printStackTrace();
-            out.print(false);
+            String nullresponse = null;
+            out.print(nullresponse);
             out.flush();
         }
         processRequest(request, response);
@@ -145,13 +149,22 @@ public class RequestController extends HttpServlet {
            List<Report> reportList;
            String reportJsonString = ""; 
         try{
-            if(query.equals("SELECT_ALL")){
-                reportList = requestdao.select(-1,"ALL");
-                reportJsonString = this.gson.toJson(reportList);
-            } else if(query.equals("BY_ID")){
-                reportList = requestdao.select(Integer.parseInt(id), role);
-                reportJsonString = this.gson.toJson(reportList);
-            }
+               switch (query) {
+                   case "SELECT_ALL":
+                       reportList = requestdao.select(-1,"ALL");
+                       reportJsonString = this.gson.toJson(reportList);
+                       break;
+                   case "BY_USER_ID":
+                       reportList = requestdao.select(Integer.parseInt(id), role);
+                       reportJsonString = this.gson.toJson(reportList);
+                       break;
+                   case "BY_REQUEST_ID":
+                       RequestItem req= requestdao.searchRequest(Integer.parseInt(id)); 
+                       reportJsonString = this.gson.toJson(req);
+                       break;
+                   default:
+                       break;
+               }
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -195,12 +208,15 @@ public class RequestController extends HttpServlet {
       } 
       return null;
     }
+    
+    
 
 }
 
 
 //GET
 // http://localhost:4949/api-restfull-plexus/request
+// http://localhost:4949/api-restfull-plexus/request/id
 // http://localhost:4949/api-restfull-plexus/request/client/id
 // http://localhost:4949/api-restfull-plexus/request/adviser/id
 

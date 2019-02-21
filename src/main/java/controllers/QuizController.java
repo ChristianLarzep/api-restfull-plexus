@@ -7,7 +7,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.IOException;  
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +25,6 @@ import services.QuizDao;
  */
 @WebServlet(name = "QuizController", urlPatterns = {"/quiz/*"})
 public class QuizController extends HttpServlet {
-
     private final Gson gson = new Gson();
     QuizDao quizdao = new QuizDao();
     String quizJsonString;
@@ -129,6 +128,7 @@ public class QuizController extends HttpServlet {
 // GET
 // http://localhost:4949/api-restfull-plexus/quiz
 // http://localhost:4949/api-restfull-plexus/quiz/id
+//TODO http://192.168.1.72:8086/api-restfull-plexus/quiz/adviser/id
 
 //POST
 // http://localhost:4949/api-restfull-plexus/quiz

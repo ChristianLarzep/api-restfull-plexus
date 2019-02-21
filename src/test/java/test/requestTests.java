@@ -44,7 +44,7 @@ public class requestTests {
     @After
     public void tearDown() {
     }
-    
+    /*
     @Test
     public void postRequestTest()
     {		
@@ -161,6 +161,6 @@ public class requestTests {
             String result = body.asString();
             Assert.assertTrue(result.contains("true"));
  
-    }
+    }*/
 
 }

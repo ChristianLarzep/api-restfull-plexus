@@ -11,11 +11,11 @@ package models;
  */
 public class Report {
     private long reportId;
-    private long idClient;
-    private long idAdviser;
+    private long client_user_id;
+    private long adviser_user_id;
     private String system;
-    private String initDate;
-    private String endDate;
+    private String init_date;
+    private String end_date;
     private String status;
     private String time;
     private float amount;
@@ -32,19 +32,19 @@ public class Report {
     }
 
     public long getIdClient() {
-        return idClient;
+        return client_user_id;
     }
 
     public void setIdClient(long idClient) {
-        this.idClient = idClient;
+        this.client_user_id = idClient;
     }
 
     public long getIdAdviser() {
-        return idAdviser;
+        return adviser_user_id;
     }
 
     public void setIdAdviser(long idAdviser) {
-        this.idAdviser = idAdviser;
+        this.adviser_user_id = idAdviser;
     }
 
     public String getSystem() {
@@ -56,19 +56,19 @@ public class Report {
     }
 
     public String getInitDate() {
-        return initDate;
+        return init_date;
     }
 
     public void setInitDate(String initDate) {
-        this.initDate = initDate;
+        this.init_date = initDate;
     }
 
     public String getEndDate() {
-        return endDate;
+        return end_date;
     }
 
     public void setEndDate(String endDate) {
-        this.endDate = endDate;
+        this.end_date = endDate;
     }
 
     public String getStatus() {

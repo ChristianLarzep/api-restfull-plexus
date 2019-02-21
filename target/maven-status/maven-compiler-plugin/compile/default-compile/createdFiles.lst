@@ -1,9 +1,9 @@
-models/Quiz.class
 models/User.class
 models/Report.class
 services/IDao.class
+controllers/QuizController.class
+models/Quiz.class
 models/System.class
 models/Request.class
 services/DBConnection.class
 services/QuizDao.class
-controllers/QuizController.class

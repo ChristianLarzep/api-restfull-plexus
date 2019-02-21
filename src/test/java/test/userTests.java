@@ -43,6 +43,7 @@ public class userTests {
     public void tearDown() {
     }
     
+    /*
     @Test
     public void loginTest()
     {		
@@ -120,6 +121,6 @@ public class userTests {
             String result = body.asString();
             Assert.assertTrue(result.contains("null"));
     
-    }
+    }*/
    
 }

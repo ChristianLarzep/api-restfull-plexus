@@ -27,11 +27,18 @@ public class UserController extends HttpServlet {
     
     private final Gson gson = new Gson();
     UserDao userdao = new UserDao();
-    String userJsonStr;
+    String userJsonStr; 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        
+        
         try (PrintWriter out = response.getWriter()) {}
     }
 
@@ -39,6 +46,14 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        
+      
+        
         if(isEmpty(request) == false){
             String resource = getResource(request);
             BufferedReader reader = request.getReader();
@@ -98,9 +113,19 @@ public class UserController extends HttpServlet {
       }
   
     }
+    
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+      resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8100/");
+      resp.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
+      resp.setHeader("Access-Control-Allow-Methods", "POST");
+  }
 }
 
 
 //POST
 //http://localhost:4949/api-restfull-plexus/user/login
 //http://localhost:4949/api-restfull-plexus/user/register
+
+//Cross-Origin Tomcat
+//http://tomcat.apache.org/tomcat-8.0-doc/config/filter.html#CORS_Filter
+//https://stackoverflow.com/questions/30171694/enable-cors-apache-tomcat-7-0-52

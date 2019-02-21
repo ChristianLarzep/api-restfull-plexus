@@ -43,7 +43,7 @@ public class reportTest {
     @After
     public void tearDown() {
     }
-    
+    /*
     @Test
     public void postReportTest()
     {		
@@ -135,6 +135,6 @@ public class reportTest {
         Assert.assertTrue(result.contains("30"));
         Assert.assertTrue(result.contains("description"));
         Assert.assertTrue(result.contains("Description"));
-    }
+    }*/
    
 }

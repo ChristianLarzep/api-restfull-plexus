@@ -6,7 +6,7 @@ package models;
  * @author christian larzep
  */
 public class User {
-    private long userId;
+    private long id_user;
     private String username;
     private String email;
     private String password;
@@ -19,11 +19,11 @@ public class User {
     public User(){}
 
     public long getUserId() {
-        return userId;
+        return id_user;
     }
 
     public void setUserId(long userId) {
-        this.userId = userId;
+        this.id_user = userId;
     }
 
     public String getUsername() {
