@@ -10,7 +10,7 @@ package models;
  * @author christian larzep
  */
 public class Report {
-    private long reportId;
+    private long report_id;
     private long client_user_id;
     private long adviser_user_id;
     private String system;
@@ -24,11 +24,11 @@ public class Report {
     public Report(){}
 
     public long getReportId() {
-        return reportId;
+        return report_id;
     }
 
     public void setReportId(long reportId) {
-        this.reportId = reportId;
+        this.report_id = reportId;
     }
 
     public long getIdClient() {

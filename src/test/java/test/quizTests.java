@@ -29,7 +29,7 @@ public class quizTests {
     
     @BeforeClass
     public static void setUpClass() {
-        RestAssured.baseURI = "http://localhost:4949/api-restfull-plexus";
+        RestAssured.baseURI = "http://localhost:8086/api-restfull-plexus";
     }
     
     @AfterClass
@@ -47,13 +47,13 @@ public class quizTests {
      @Test
     public void postQuizTest()
     {		
-           /* RequestSpecification request = RestAssured.given();
+            RequestSpecification request = RestAssured.given();
 
             JSONObject requestParams = new JSONObject();
             requestParams.put("contact", "test");
             requestParams.put("idAdviser", "4");
-            requestParams.put("timeWaiting", "30,60");
-            requestParams.put("timeToSolve", "0,30");
+            requestParams.put("time_waiting", "30,60");
+            requestParams.put("time_to_solve", "0,30");
             requestParams.put("knowledge",  "80");
             requestParams.put("satisfaction",  "80");
             
@@ -64,40 +64,40 @@ public class quizTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("true"));*/
+            Assert.assertTrue(result.contains("true"));
     }
     
     @Test
     public void getAllQuizesTest() {
-   /* RequestSpecification httpRequest = RestAssured.given();
+    RequestSpecification httpRequest = RestAssured.given();
     httpRequest.header("Content-Type", "application/json");
     Response response = httpRequest.get("/quiz");
     response.then().assertThat()
-      .body("size()", is(21));*/
+      .body("size()", is(21));
     }
     
     @Test
     public void getQuizesByAdviserTest(){
-       /* RequestSpecification httpRequest = RestAssured.given();
+        RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Content-Type", "application/json");
         Response response = httpRequest.get("/quiz/adviser/3");
         
         ResponseBody body = response.getBody();
         String result = body.asString();
-        Assert.assertTrue(result.contains("quizId"));
+        Assert.assertTrue(result.contains("quiz_id"));
         Assert.assertTrue(result.contains("29"));
         Assert.assertTrue(result.contains("contact"));
         Assert.assertTrue(result.contains("plexuss"));
         Assert.assertTrue(result.contains("idAdviser"));
         Assert.assertTrue(result.contains("3"));
-        Assert.assertTrue(result.contains("timeWaiting"));
+        Assert.assertTrue(result.contains("time_waiting"));
         Assert.assertTrue(result.contains("30,60"));
-        Assert.assertTrue(result.contains("timeToSolve"));
+        Assert.assertTrue(result.contains("time_to_solve"));
         Assert.assertTrue(result.contains("0,30"));
         Assert.assertTrue(result.contains("knowledge"));
         Assert.assertTrue(result.contains("80"));
         Assert.assertTrue(result.contains("satisfaction"));
-        Assert.assertTrue(result.contains("80")); */
+        Assert.assertTrue(result.contains("80"));
     }
   
 }

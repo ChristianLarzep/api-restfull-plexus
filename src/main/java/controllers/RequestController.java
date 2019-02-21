@@ -100,7 +100,7 @@ public class RequestController extends HttpServlet {
             if(isEmpty(request)){
                 BufferedReader reader = request.getReader();
                 Request req = gson.fromJson(reader, Request.class);
-                out.print(requestdao.update(req));
+                out.print(this.gson.toJson(requestdao.update(req)));
                 out.flush();
             }   
         }catch(SQLException e){

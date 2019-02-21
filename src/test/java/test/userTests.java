@@ -28,7 +28,7 @@ public class userTests {
     
     @BeforeClass
     public static void setUpClass() {
-        RestAssured.baseURI = "http://localhost:4949/api-restfull-plexus";
+        RestAssured.baseURI = "http://localhost:8086/api-restfull-plexus";
     }
     
     @AfterClass
@@ -43,7 +43,7 @@ public class userTests {
     public void tearDown() {
     }
     
-    /*
+    
     @Test
     public void loginTest()
     {		
@@ -61,7 +61,7 @@ public class userTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("userId"));
+            Assert.assertTrue(result.contains("id_user"));
             Assert.assertTrue(result.contains("6"));
             Assert.assertTrue(result.contains("username"));
             Assert.assertTrue(result.contains("Karla Gabrielle"));
@@ -121,6 +121,6 @@ public class userTests {
             String result = body.asString();
             Assert.assertTrue(result.contains("null"));
     
-    }*/
+    }
    
 }

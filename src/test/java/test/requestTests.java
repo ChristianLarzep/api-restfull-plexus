@@ -30,7 +30,7 @@ public class requestTests {
     
     @BeforeClass
     public static void setUpClass() {
-        RestAssured.baseURI = "http://localhost:4949/api-restfull-plexus";
+        RestAssured.baseURI = "http://localhost:8086/api-restfull-plexus";
     }
     
     @AfterClass
@@ -44,7 +44,7 @@ public class requestTests {
     @After
     public void tearDown() {
     }
-    /*
+    
     @Test
     public void postRequestTest()
     {		
@@ -65,9 +65,6 @@ public class requestTests {
 
             int statusCode = response.getStatusCode();
             Assert.assertEquals(200, statusCode);
-            ResponseBody body = response.getBody();
-            String result = body.asString();
-            Assert.assertTrue(result.contains("true"));
     }
     
     @Test
@@ -76,63 +73,56 @@ public class requestTests {
     httpRequest.header("Content-Type", "application/json");
     Response response = httpRequest.get("/request");
     response.then().assertThat()
-      .body("size()", is(17));
+      .body("size()", is(5));
     }
     
     @Test
     public void getRequestByAdviserTest(){
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Content-Type", "application/json");
-        Response response = httpRequest.get("/request/adviser/3");
+        Response response = httpRequest.get("/request/adviser/1");
         
         ResponseBody body = response.getBody();
         String result = body.asString();
-        Assert.assertTrue(result.contains("requestId"));
-        Assert.assertTrue(result.contains("39"));
+        Assert.assertTrue(result.contains("request_id"));
+        Assert.assertTrue(result.contains("46"));
         Assert.assertTrue(result.contains("date"));
-        Assert.assertTrue(result.contains("Wed Oct 24 2018"));
+        Assert.assertTrue(result.contains("Wed Feb 20 2019"));
         Assert.assertTrue(result.contains("hour"));
-        Assert.assertTrue(result.contains("0:59:16"));
+        Assert.assertTrue(result.contains("20:13:7"));
         Assert.assertTrue(result.contains("subject"));
-        Assert.assertTrue(result.contains("cc"));
+        Assert.assertTrue(result.contains("Ayuda Carlos"));
         Assert.assertTrue(result.contains("description"));
-        Assert.assertTrue(result.contains("cc"));
+        Assert.assertTrue(result.contains("Ven we"));
         Assert.assertTrue(result.contains("system"));
-        Assert.assertTrue(result.contains("AdminPAQ"));
+        Assert.assertTrue(result.contains("Comercial Premium"));
         Assert.assertTrue(result.contains("status"));
-        Assert.assertTrue(result.contains("RESOLVED"));
-        Assert.assertTrue(result.contains("idAdviser"));
-        Assert.assertTrue(result.contains("3"));
-        Assert.assertTrue(result.contains("idClient"));
-        Assert.assertTrue(result.contains("0"));
+        Assert.assertTrue(result.contains("DONE"));
     }
     
     @Test
     public void getRequestByClientTest(){
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Content-Type", "application/json");
-        Response response = httpRequest.get("/request/client/0");
+        Response response = httpRequest.get("/request/client/7");
         
         ResponseBody body = response.getBody();
         String result = body.asString();
-        Assert.assertTrue(result.contains("requestId"));
-        Assert.assertTrue(result.contains("39"));
+        Assert.assertTrue(result.contains("request_id"));
+        Assert.assertTrue(result.contains("35"));
         Assert.assertTrue(result.contains("date"));
-        Assert.assertTrue(result.contains("Wed Oct 24 2018"));
+        Assert.assertTrue(result.contains("Thu Jan 03 2019"));
         Assert.assertTrue(result.contains("hour"));
-        Assert.assertTrue(result.contains("0:59:16"));
+        Assert.assertTrue(result.contains("14:35:28"));
         Assert.assertTrue(result.contains("subject"));
-        Assert.assertTrue(result.contains("cc"));
+        Assert.assertTrue(result.contains("Help me please"));
         Assert.assertTrue(result.contains("description"));
-        Assert.assertTrue(result.contains("cc"));
+        Assert.assertTrue(result.contains("Everything is broken"));
         Assert.assertTrue(result.contains("system"));
-        Assert.assertTrue(result.contains("AdminPAQ"));
+        Assert.assertTrue(result.contains("Avanttia"));
         Assert.assertTrue(result.contains("status"));
-        Assert.assertTrue(result.contains("RESOLVED"));
-        Assert.assertTrue(result.contains("idAdviser"));
-        Assert.assertTrue(result.contains("3"));
-        Assert.assertTrue(result.contains("idClient"));
-        Assert.assertTrue(result.contains("0"));
+        Assert.assertTrue(result.contains("DONE"));
+
     }
     
     
@@ -142,15 +132,15 @@ public class requestTests {
             RequestSpecification request = RestAssured.given();
 
             JSONObject requestParams = new JSONObject();
-            requestParams.put("requestId", "35");
+            requestParams.put("request_id", "35");
             requestParams.put("date", "Thu Jan 03 2019");
             requestParams.put("hour", "14:35:28");
             requestParams.put("subject", "Help me please");
             requestParams.put("description",  "Everything is broken");
             requestParams.put("system",  "Avanttia");
-            requestParams.put("status", "RESOLVED");
-            requestParams.put("idAdviser",  "2");
-            requestParams.put("idClient",  "1");
+            requestParams.put("status", "DONE");
+            requestParams.put("adviser_user_id",  "2");
+            requestParams.put("client_user_id",  "7");
             
             request.body(requestParams.toString());
             Response response = request.put("/request");
@@ -159,8 +149,9 @@ public class requestTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("true"));
+            Assert.assertTrue(result.contains("status"));
+            Assert.assertTrue(result.contains("DONE"));
  
-    }*/
+    }
 
 }

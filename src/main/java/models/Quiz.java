@@ -10,22 +10,22 @@ package models;
  * @author christian larzep
  */
 public class Quiz {
-    private int quizId;
+    private int quiz_id;
     private String contact;
     private int idAdviser;
     private String time_waiting;
-    private String time_to_Solve;
+    private String time_to_solve;
     private String knowledge;
     private String satisfaction;
     
     public Quiz(){}
 
     public int getQuizId() {
-        return quizId;
+        return quiz_id;
     }
 
     public void setQuizId(int quizId) {
-        this.quizId = quizId;
+        this.quiz_id = quizId;
     }
 
     public String getContact() {
@@ -53,11 +53,11 @@ public class Quiz {
     }
 
     public String getTimeToSolve() {
-        return time_to_Solve;
+        return time_to_solve;
     }
 
     public void setTimeToSolve(String timeToSolve) {
-        this.time_to_Solve = timeToSolve;
+        this.time_to_solve = timeToSolve;
     }
 
     public String getKnowledge() {

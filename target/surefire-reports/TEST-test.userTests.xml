@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="test.userTests" time="2.031" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="test.userTests" time="1.925" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/christian/jdk1.8.0_111/jre/lib/amd64"/>
@@ -61,7 +61,7 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="test.userTests" name="incorrectEmailloginTest" time="1.301"/>
-  <testcase classname="test.userTests" name="incorrectPassloginTest" time="0.04"/>
-  <testcase classname="test.userTests" name="loginTest" time="0.05"/>
+  <testcase classname="test.userTests" name="incorrectEmailloginTest" time="1.229"/>
+  <testcase classname="test.userTests" name="incorrectPassloginTest" time="0.034"/>
+  <testcase classname="test.userTests" name="loginTest" time="0.058"/>
 </testsuite>
