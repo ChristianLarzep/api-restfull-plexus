@@ -5,6 +5,7 @@
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/services/IDao.java
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/services/QuizDao.java
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/services/DBConnection.java
+/home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/models/RequestItem.java
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/services/RequestDao.java
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/services/ReportDao.java
 /home/christian/NetBeansProjects/algoritmos/api-restfull-plexus/src/main/java/controllers/QuizController.java

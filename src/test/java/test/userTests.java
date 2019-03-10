@@ -53,7 +53,7 @@ public class userTests {
             JSONObject requestParams = new JSONObject();
             requestParams.put("password", "motita");
             requestParams.put("email", "karlag@live.com");
-            
+
             request.body(requestParams.toString());
             Response response = request.post("/user/login");
 
@@ -61,24 +61,11 @@ public class userTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("id_user"));
-            Assert.assertTrue(result.contains("6"));
-            Assert.assertTrue(result.contains("username"));
-            Assert.assertTrue(result.contains("Karla Gabrielle"));
+
             Assert.assertTrue(result.contains("email"));
             Assert.assertTrue(result.contains("karlag@live.com"));
             Assert.assertTrue(result.contains("password"));
             Assert.assertTrue(result.contains("motita"));
-            Assert.assertTrue(result.contains("role"));
-            Assert.assertTrue(result.contains("CLIENT"));
-            Assert.assertTrue(result.contains("cell"));
-            Assert.assertTrue(result.contains("23345656"));
-            Assert.assertTrue(result.contains("tel"));
-            Assert.assertTrue(result.contains("24354675"));
-            Assert.assertTrue(result.contains("rfc"));
-            Assert.assertTrue(result.contains("URNF756FJ"));
-            Assert.assertTrue(result.contains("r_social"));
-            Assert.assertTrue(result.contains("KGInc"));
     }
     
     @Test
@@ -98,7 +85,7 @@ public class userTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("null"));
+            Assert.assertTrue(result.contains("404"));
     
     }
     
@@ -119,8 +106,61 @@ public class userTests {
             Assert.assertEquals(200, statusCode);
             ResponseBody body = response.getBody();
             String result = body.asString();
-            Assert.assertTrue(result.contains("null"));
+            Assert.assertTrue(result.contains("404"));
+    }
     
+    @Test
+    public void registerNewUserTest()
+    {
+            RequestSpecification request = RestAssured.given();
+            request.header("Content-Type", "application/json");
+
+            JSONObject requestParams = new JSONObject();
+            
+            requestParams.put("username", "Test new user");
+            requestParams.put("email", "testnew@live.com");
+            requestParams.put("password", "new");
+            requestParams.put("role", "CLIENT");
+            requestParams.put("cell", "3456787654");
+            requestParams.put("tel", "567654454");
+            requestParams.put("rfc", "URNF756FJ");
+            requestParams.put("r_social", "NewInc");
+            
+            request.body(requestParams.toString());
+            Response response = request.post("/user/register");
+
+            int statusCode = response.getStatusCode();
+            Assert.assertEquals(200, statusCode);
+            ResponseBody body = response.getBody();
+            String result = body.asString();
+            Assert.assertTrue(result.contains("200"));
+    }
+    
+    @Test
+    public void registerExistingUserTest()
+    {		
+        RequestSpecification request = RestAssured.given();
+            request.header("Content-Type", "application/json");
+
+            JSONObject requestParams = new JSONObject();
+            
+            requestParams.put("username", "Test new user");
+            requestParams.put("email", "carlos@live.com");
+            requestParams.put("password", "new");
+            requestParams.put("role", "CLIENT");
+            requestParams.put("cell", "3456787654");
+            requestParams.put("tel", "567654454");
+            requestParams.put("rfc", "URNF756FJ");
+            requestParams.put("r_social", "OtherInc");
+            
+            request.body(requestParams.toString());
+            Response response = request.post("/user/register");
+
+            int statusCode = response.getStatusCode();
+            Assert.assertEquals(200, statusCode);
+            ResponseBody body = response.getBody();
+            String result = body.asString();
+            Assert.assertTrue(result.contains("400"));
     }
    
 }

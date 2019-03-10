@@ -31,13 +31,6 @@ public class UserController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-        
         
         try (PrintWriter out = response.getWriter()) {}
     }
@@ -46,19 +39,19 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-        
-      
         
         if(isEmpty(request) == false){
             String resource = getResource(request);
             BufferedReader reader = request.getReader();
             User user = gson.fromJson(reader, User.class);
             userJsonStr = getJsonData(resource, user);
+            if(userJsonStr.equals("null")){
+                userJsonStr = "404";
+            } else if(userJsonStr.equals("false")){
+                userJsonStr = "400";
+            } else if(userJsonStr.equals("true")){
+                userJsonStr = "200";
+            }
             
         }
         PrintWriter out = response.getWriter();
@@ -113,12 +106,6 @@ public class UserController extends HttpServlet {
       }
   
     }
-    
-    private void setAccessControlHeaders(HttpServletResponse resp) {
-      resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8100/");
-      resp.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
-      resp.setHeader("Access-Control-Allow-Methods", "POST");
-  }
 }
 
 

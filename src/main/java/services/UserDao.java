@@ -20,12 +20,29 @@ public class UserDao {
     private final String INSERT_USER = "INSERT INTO user(cell, email, password, r_social, rfc, role, tel, username) VALUES(?,?,?,?,?,?,?,?)";
     private final String CHECK_USER ="SELECT * FROM user WHERE password = ? AND email = ?";
     private final String FIND_USER = "SELECT * FROM user WHERE user_id = ?";
+    private final String EXIST = "SELECT email FROM user WHERE email = ?";
     
     
    public UserDao(){}
     
     public UserDao(Connection userConn){
         this.userConn = userConn;
+    }
+    
+     public boolean alreadyExist(String email) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+        stmt = conn.prepareStatement(EXIST);
+        stmt.setString(1, email);
+        rs = stmt.executeQuery();
+        while(rs.next()){
+            return true;
+        }
+
+       return false;
     }
     
     public User login(User user) throws SQLException{
@@ -78,22 +95,24 @@ public class UserDao {
         PreparedStatement stmt = null;
         boolean registred = false;
         try{
-            User u = (User) user;
-            conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
-            stmt = conn.prepareStatement(INSERT_USER); 
-            int index = 1;
-            stmt.setLong(index++, u.getCell());
-            stmt.setString(index++, u.getEmail());
-            stmt.setString(index++, u.getPassword());
-            stmt.setString(index++, u.getR_social());
-            stmt.setString(index++, u.getRfc());
-            stmt.setString(index++, u.getRole());
-            stmt.setLong(index++, u.getTel());
-            stmt.setString(index++, u.getUsername()); 
-           
-            stmt.executeUpdate();
-            
-            registred = true;
+            if(alreadyExist(user.getEmail()) == false){
+                User u = (User) user;
+                conn = (this.userConn != null) ? this.userConn : DBConnection.getConnection();
+                stmt = conn.prepareStatement(INSERT_USER); 
+                int index = 1;
+                stmt.setLong(index++, u.getCell());
+                stmt.setString(index++, u.getEmail());
+                stmt.setString(index++, u.getPassword());
+                stmt.setString(index++, u.getR_social());
+                stmt.setString(index++, u.getRfc());
+                stmt.setString(index++, u.getRole());
+                stmt.setLong(index++, u.getTel());
+                stmt.setString(index++, u.getUsername()); 
+
+                stmt.executeUpdate();
+
+                registred = true;
+            }
         }finally{
             DBConnection.close(stmt);
             if(this.userConn == null){
